@@ -1,0 +1,64 @@
+﻿@model JewelleryShop.Models.EstimateDetails
+@inject JewelleryShop.Helpers.IHomeHelper _homeHelper
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+    <div id="PlaceHolderHere">  
+        <form asp-controller="Home" asp-action="Index" class="mt-3">
+            <div class="align-content-center">
+                <h1 class="display-4"> Welcome to Jewellery Shop! </h1>
+                <div asp-validation-summary="All" class="text-danger">
+                    <div class="form-group row">
+                        <label asp-for="GoldPrice" class="col-sm-2 col-form-label">
+                            Gold Price (per gram):
+                        </label>
+                        <div class="col-sm-5">
+                            <input asp-for="GoldPrice" class="gold-price form-control" onchange="CalcEstimate('goldPr')"
+                                   placeholder="Enter the price of gold per gram" />
+                            <span asp-validation-for="GoldPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="GoldWeight" class="col-sm-2 col-form-label">
+                            Weight:
+                        </label>
+                        <div class="col-sm-5">
+                            <input asp-for="GoldWeight" onchange="CalcEstimate('goldW')" class="gold-weight form-control" placeholder="Enter the weight" />
+                            <span asp-validation-for="GoldWeight" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="TotalPrice" class="col-sm-2 col-form-label">
+                            Total Price:
+                        </label>
+                        <div class="col-sm-5">
+                            <input asp-for="TotalPrice" class="total-price form-control" placeholder="Total price appears here" />
+                        </div>
+                    </div>
+                    @if (Model.isPrivilaged)
+                    {
+                        <div class="form-group row">
+                            <label asp-for="DiscountPrice" class="col-sm-2 col-form-label">
+                                Discount Price:
+                            </label>
+                            <div class="col-sm-5">
+                                <input asp-for="DiscountPrice" class="discount-price form-control" placeholder="Your discount rate" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-dark col-sm-2" type="button"
+                        data-toggle="ajax-modal" data-target="#showEstimate" data-url="@Url.Action($"EstimatePopup")">
+                    Print to Screen
+                </button>
+                <button class="btn btn-lg btn-dark col-sm-2" type="button" onclick="PrintToFile()">Print to file</button>
+                <button class="btn btn-lg btn-dark col-sm-2" type="button" onclick="PrintToPaper()">Print to Paper</button>
+            </div>
+            <input type="hidden" asp-for="isPrivilaged" id="hdnPrivilaged" value="@Model.isPrivilaged" />
+        </form>
+</div>
+
+

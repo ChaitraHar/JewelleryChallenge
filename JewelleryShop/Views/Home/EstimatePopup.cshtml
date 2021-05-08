@@ -1,0 +1,18 @@
+﻿@model EstimatePopupModel
+
+    
+    <div class="modal fade" id="showEstimate">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Estimate</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>x</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="showestimatebody">
+                    @Model.ShowMessage
+                </div>
+            </div>
+        </div>
+    </div>
